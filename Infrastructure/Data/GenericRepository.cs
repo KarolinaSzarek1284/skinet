@@ -23,6 +23,10 @@ namespace Infrastructure.Data
         {
             return await _context.Set<T>().FindAsync(id);
         }
+        public async Task<int> CountAsync(ISpecification<T> spec)
+        {
+            return await ApplySpecification(spec).CountAsync();
+        }
 
         public async Task<IReadOnlyList<T>> ListAllAsync()
         {
@@ -42,5 +46,6 @@ namespace Infrastructure.Data
         {
             return SpecificationEvaluator<T>.GetQuery(_context.Set<T>().AsQueryable(),spec);
         }
+
     }
 }
